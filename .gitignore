@@ -1,0 +1,6 @@
+
+.scannerwork
+coverage
+node_modules
+api-test/api
+api-test/coverage

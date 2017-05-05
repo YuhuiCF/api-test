@@ -1,0 +1,36 @@
+{
+  "name": "api-test",
+  "version": "0.1.0",
+  "description": "API test template",
+  "main": "index.js",
+  "scripts": {
+    "preinit-api": "rm -rf ./taxonomy-api-test/api",
+    "init-api": "node taxonomy-api-test/node_scripts/initApis.js",
+    "istanbul": "istanbul cover jasmine-node ./taxonomy-api-test --no-default-excludes --include-all-sources -i **/taxonomy-api-test/**/*.js -x **/node_modules/** -x **/taxonomy-api-test/node_scripts/**",
+    "jasmine-node": "jasmine-node ./taxonomy-api-test --verbose --color --forceexit",
+    "sonar": "bash -e sonar.sh",
+    "sonarscan": "node ./taxonomy-api-test/node_scripts/sonarqubeScanner.js",
+    "test": "npm run init-api && npm run istanbul && npm run sonar"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuhuiCF/api-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "2.5.6",
+    "fs-extra": "3.0.1",
+    "istanbul": "0.4.5",
+    "jasmine-node": "1.14.5",
+    "ramda": "0.23.0",
+    "request": "2.81.0",
+    "request-promise": "4.2.0",
+    "sonarqube-scanner": "1.1.0",
+    "xml2json": "0.11.0"
+  },
+  "bugs": {
+    "url": "https://github.com/YuhuiCF/api-test/issues"
+  },
+  "homepage": "https://github.com/YuhuiCF/api-test#readme"
+}
