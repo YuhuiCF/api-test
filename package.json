@@ -4,12 +4,12 @@
   "description": "API test template",
   "main": "index.js",
   "scripts": {
-    "preinit-api": "rm -rf ./taxonomy-api-test/api",
-    "init-api": "node taxonomy-api-test/node_scripts/initApis.js",
-    "istanbul": "istanbul cover jasmine-node ./taxonomy-api-test --no-default-excludes --include-all-sources -i **/taxonomy-api-test/**/*.js -x **/node_modules/** -x **/taxonomy-api-test/node_scripts/**",
-    "jasmine-node": "jasmine-node ./taxonomy-api-test --verbose --color --forceexit",
+    "preinit-api": "rm -rf ./api-test/api",
+    "init-api": "node api-test/node_scripts/initApis.js",
+    "istanbul": "istanbul cover jasmine-node ./api-test --no-default-excludes --include-all-sources -i **/api-test/**/*.js -x **/node_modules/** -x **/api-test/node_scripts/**",
+    "jasmine-node": "jasmine-node ./api-test --verbose --color --forceexit",
     "sonar": "bash -e sonar.sh",
-    "sonarscan": "node ./taxonomy-api-test/node_scripts/sonarqubeScanner.js",
+    "sonarscan": "node ./api-test/node_scripts/sonarqubeScanner.js",
     "test": "npm run init-api && npm run istanbul && npm run sonar"
   },
   "repository": {
