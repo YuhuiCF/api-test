@@ -1,6 +1,11 @@
 'use strict';
 
-const {error, getMergedFgOptions, log, Promise, R, request, setUri} = require('../helper');
+const {fatal, getMergedFgOptions, log, Promise, R, request, setUri} = require('../helper');
+const config = require('../../config');
+const ejs = require('./ejs');
+
+const {apiPrefixOflistApis} = config;
+
 
 const defaultOptions = {
   json: true,
@@ -13,29 +18,37 @@ module.exports = listAllApis;
 function listAllApis() {
   return listApis('/basepaths').then((basePaths) => {
     let promise = Promise.resolve();
-    let output = [];
 
     R.forEach((basePath) => {
       promise = promise.then(() => {
         return listApis('/calls', {qs: {basePath: basePath}}).then((calls) => {
-          output = output.concat(calls);
+          log(`calls for basePath ${basePath} fetched`);
+
+          let promises = [];
+          R.forEach((call) => {
+            promises.push(
+              ejs(call)
+            );
+          }, calls);
+
+          return Promise.all(promises).catch((err) => {
+            return fatal(err);
+          });
         });
       });
     }, basePaths);
 
-    return promise.then(() => {
-      return Promise.resolve(output);
-    });
+    return promise;
   }, (err) => {
     log('list basePaths failed');
-    error(err);
+    fatal(err);
   });
 }
 
 function listApis(path, params) {
   const options = getMergedFgOptions({
     method: 'GET',
-    uri: setUri(path, '/apitester/api'),
+    uri: setUri(path, apiPrefixOflistApis),
   }, R.merge(R.clone(defaultOptions), params));
 
   return request(options).catch((err) => {
@@ -43,6 +56,6 @@ function listApis(path, params) {
 path: ${path}
 params: ${params ? JSON.stringify(params) : params}
 `);
-    error(err);
+    fatal(err);
   });
 }

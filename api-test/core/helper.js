@@ -8,8 +8,10 @@ const R = require('ramda');
 const request = require('request-promise');
 const util = require('util');
 
-const {apiHost, password, username} = process.env;
-const urlPrefix = '';
+const config = require('../config');
+
+const {apiHost} = config.envVars;
+const {apiPrefix, envVars} = config;
 
 const defaultOptions = {
   jar: true,
@@ -19,21 +21,31 @@ const defaultOptions = {
 };
 
 const helperModule = {
+  apiRequest: apiRequest,
+  envVars: envVars,
   error: error,
   fatal: fatal,
   getMergedFgOptions: getMergedFgOptions,
   log: log,
-  password: password,
   Promise: Promise,
   R: R,
   readFile: readFile,
   request: request,
   setUri: setUri,
-  username: username,
+  specError: specError,
 };
 
 module.exports = helperModule;
 
+
+function apiRequest(method, fullPath, params = {}) {
+  const options = getMergedFgOptions({
+    method: method,
+    uri: setUri(fullPath, apiPrefix, params.pathParams),
+  }, params);
+
+  return request(options);
+}
 
 /**
  * Logs a message to the terminal
@@ -42,6 +54,10 @@ module.exports = helperModule;
  */
 function error(message) {
   console.error(message);
+}
+
+function specError(message) {
+  helperModule.error(message);
   throw new Error(message);
 }
 
@@ -81,12 +97,12 @@ function readFile(file) {
 }
 
 function setUri(url, prefix, ...replacers) {
-  const replacersLength = replacers.length;
+  const replacersLength = replacers && replacers.length;
 
   if (replacersLength) {
     const keys = url.match(/{(\w)+}/g);
 
-    if (keys.length) {
+    if (keys && keys.length) {
       R.forEach((key, index) => {
         if (index < replacersLength) {
           url = url.replace(key, replacers[index]);
@@ -95,5 +111,5 @@ function setUri(url, prefix, ...replacers) {
     }
   }
 
-  return apiHost + (prefix || urlPrefix) + url;
+  return apiHost + prefix + url;
 }

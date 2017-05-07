@@ -4,13 +4,13 @@
   "description": "API test template",
   "main": "index.js",
   "scripts": {
-    "preinit-api": "rm -rf ./api-test/api",
-    "init-api": "node api-test/node_scripts/initApis.js",
-    "istanbul": "istanbul cover jasmine-node ./api-test --no-default-excludes --include-all-sources -i **/api-test/**/*.js -x **/node_modules/** -x **/api-test/node_scripts/**",
-    "jasmine-node": "jasmine-node ./api-test --verbose --color --forceexit",
-    "sonar": "bash -e sonar.sh",
-    "sonarscan": "node ./api-test/node_scripts/sonarqubeScanner.js",
-    "test": "npm run init-api && npm run istanbul && npm run sonar"
+    "preapi-test:init-api": "rm -rf ./api-test/api",
+    "api-test:init-api": "node ./api-test/core/node_scripts/initApis.js",
+    "api-test:istanbul": "JASMINE_CONFIG_PATH=api-test/core/jasmine.json istanbul cover jasmine --config=./api-test/core/istanbul.js",
+    "jasmine": "jasmine JASMINE_CONFIG_PATH=api-test/core/jasmine.json",
+    "api-test:sonar": "bash -e api-test/core/sonar.sh",
+    "api-test:sonarscan": "node ./api-test/core/node_scripts/sonarqubeScanner.js",
+    "api-test:test": "npm run api-test:init-api && npm run api-test:istanbul && npm run api-test:sonar"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
     "ejs": "2.5.6",
     "fs-extra": "3.0.1",
     "istanbul": "0.4.5",
-    "jasmine-node": "1.14.5",
+    "jasmine": "2.6.0",
+    "jasmine-spec-reporter": "4.1.0",
     "ramda": "0.23.0",
     "request": "2.81.0",
     "request-promise": "4.2.0",

@@ -1,5 +1,5 @@
 
-const {fatal, log, Promise} = require('../helper');
+const {error, log, Promise} = require('../helper');
 const ejs = require('ejs');
 const fs = require('fs');
 const fse = require('fs-extra');
@@ -12,37 +12,35 @@ module.exports = renderData;
 
 
 function renderFile(destFileName, content) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     fse.ensureFile(destFileName, function (err) {
       if (err) {
         log('fse.ensureFile error');
-        return fatal(err);
-      } else {
-        fs.writeFile(destFileName, content, function (err) {
-          if (err) {
-            log('fs.writeFile error');
-            return fatal(err);
-          }
+        error(err);
 
-          resolve();
-        });
+        reject();
+      } else {
+        fs.writeFileSync(destFileName, content);
+        resolve();
       }
     });
   });
 }
 
 function renderData(data) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     const templateFile = path.resolve(__dirname, '../', 'api.js.template');
 
     ejs.renderFile(templateFile, data, options, function (err, str) {
       if (err) {
         log(err);
-        fatal('ejs.renderFile error');
+        error('ejs.renderFile error');
+
+        reject();
       }
 
-      const outputUrl = path.resolve(__dirname, '../', 'api', data.handlerClass, data.handlerMethod + '.js');
-      renderFile(outputUrl, str).then(resolve);
+      const outputUrl = path.resolve(__dirname, '../../', 'api', data.handlerClass, data.handlerMethod + '.js');
+      renderFile(outputUrl, str).then(resolve, reject);
     });
   });
 }

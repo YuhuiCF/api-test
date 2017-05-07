@@ -1,12 +1,6 @@
 # API Test Template
 
-## Update for your project
-* ./api-test/node_scripts/sonarqubeScanner.js
-  - serverUrl
-  - token
-  - sonar.host.url
-  - sonar.projectKey
-  - sonar.projectName
-* ./api-test/test/
-* ./api-test/helper.js
-  - urlPrefix
+## Initialize for your project
+* copy api-test/core to your own api-test/core
+* copy scripts and dependencies from packages.json to your own packages.json
+* add terms of .gitignore to your onw .gitignore

@@ -1,0 +1,7 @@
+'use strict';
+
+const {apiRequest} = require('../../core/helper');
+
+module.exports = (params) => {
+  return apiRequest('<%= method %>', '<%= fullPath %>', params);
+};

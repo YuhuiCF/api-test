@@ -1,6 +1,7 @@
 'use strict';
 
-const {error, password, username} = require('../helper');
+const {specError} = require('../core/helper');
+const {password, username} = require('../core/helper').envVars;
 
 const fileName = require('path').basename(__filename);
 
@@ -13,73 +14,95 @@ describe(`${fileName} ->`, () => {
     it('could refuse login with incorrect credentials', (done) => {
       login({
         jar: false,
-        qs: {
+        body: {
           password: 'password',
           username: 'username'
         }
-      }).then((response) => {
+      })
+      .then((response) => {
         expect(response.statusCode).toBe(404);
-      }, (err) => {
-        error(err);
-      }).finally(done);
+      })
+      .catch((err) => {
+        specError(err);
+      })
+      .finally(done);
     });
 
     it('could login with correct credentials', (done) => {
       login({
         jar: false,
-        qs: {password, username}
-      }).then((response) => {
+        body: {password, username}
+      })
+      .then((response) => {
         expect(response.statusCode).toBe(200);
-      }, (err) => {
-        error(err);
-      }).finally(done);
+      })
+      .catch((err) => {
+        specError(err);
+      })
+      .finally(done);
     });
   });
 
   describe('GET >', () => {
     it('could check current user if user is not logged in', (done) => {
-      getCurrentUser({jar: false}).then((response) => {
+      getCurrentUser({jar: false})
+      .then((response) => {
         expect(response.statusCode).toBe(403);
-      }, (err) => {
-        error(err);
-      }).finally(done);
+      })
+      .catch((err) => {
+        specError(err);
+      })
+      .finally(done);
     });
 
     it('could check current user if user is logged in', (done) => {
       login({
-        qs: {password, username}
-      }).then(() => {
-        getCurrentUser().then((response) => {
+        body: {password, username}
+      })
+      .then(() => {
+        return getCurrentUser().then((response) => {
           expect(response.statusCode).toBe(200);
-          expect(response.body.user.username).toBe('admin');
+          expect(response.body).toEqual(jasmine.objectContaining({
+            user: {
+              username: 'admin'
+            }
+          }));
 
           return logout();
-        }, (err) => {
-          error(err);
-        }).finally(done);
-      });
+        });
+      })
+      .catch((err) => {
+        specError(err);
+      })
+      .finally(done);
     });
   });
 
   describe('DELETE >', () => {
     it('could logout if user is not logged in', (done) => {
-      logout({jar: false}).then((response) => {
+      logout({jar: false})
+      .then((response) => {
         expect(response.statusCode).toBe(200);
-      }, (err) => {
-        error(err);
-      }).finally(done);
+      })
+      .catch((err) => {
+        specError(err);
+      })
+      .finally(done);
     });
 
     it('could logout if user is logged in', (done) => {
       login({
-        qs: {password, username}
-      }).then(() => {
-        logout().then((response) => {
+        body: {password, username}
+      })
+      .then(() => {
+        return logout().then((response) => {
           expect(response.statusCode).toBe(200);
-        }, (err) => {
-          error(err);
-        }).finally(done);
-      });
+        });
+      })
+      .catch((err) => {
+        specError(err);
+      })
+      .finally(done);
     });
   });
 

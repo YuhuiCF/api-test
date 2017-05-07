@@ -1,9 +1,13 @@
 'use strict';
 
-module.exports = {
-  login: require('../api/com.uv.smp.taxonomy.services.auth.impl.controllers.AuthController/authenticate'),
-  getCurrentUser: require('../api/com.uv.smp.taxonomy.services.auth.impl.controllers.AuthController/current'),
-  logout: require('../api/com.uv.smp.taxonomy.services.auth.impl.controllers.AuthController/logout'),
+const authenticationPath = '../api/com.uv.smp.authentication.api.impl.controllers.AuthenticationController/';
+const loginPath = authenticationPath + 'loginAsAdminUser';
+const getCurrentUserPath = authenticationPath + 'checkLogin';
+const logoutPath = authenticationPath + 'logout';
 
-  listCountries: require('../api/com.uv.smp.taxonomy.services.locales.impl.controllers.CountryControllerImpl/list'),
+module.exports = {
+  // authentication
+  login: require(loginPath),
+  getCurrentUser: require(getCurrentUserPath),
+  logout: require(logoutPath),
 };
