@@ -2,8 +2,9 @@
 
 ## Initialize for your project
 * copy api-test/core to your own api-test/core
+* copy configuration file api-test/config.js to your own api-test/config.js, and update the fields
 * copy scripts and dependencies from packages.json to your own packages.json
-* add terms of .gitignore to your onw .gitignore
+* add terms of .gitignore to your own .gitignore
 
 ## Update api-test module
 ```
