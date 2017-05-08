@@ -6,6 +6,7 @@
   "scripts": {
     "preapi-test:init-api": "rm -rf ./api-test/api",
     "api-test:init-api": "node ./api-test/core/node_scripts/initApis.js",
+    "preapi-test:istanbul": "rm -rf ./coverage",
     "api-test:istanbul": "JASMINE_CONFIG_PATH=api-test/core/jasmine.json istanbul cover jasmine --config=./api-test/core/istanbul.js",
     "jasmine": "jasmine JASMINE_CONFIG_PATH=api-test/core/jasmine.json",
     "api-test:sonar": "bash -e api-test/core/sonar.sh",

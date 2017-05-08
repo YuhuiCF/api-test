@@ -7,4 +7,7 @@ module.exports = {
     excludes: ['**/node_modules/**', '**/api-test/core/**'],
     'include-all-sources': true,
   },
+  reporting: {
+    dir: 'coverage'
+  }
 };
