@@ -19,9 +19,10 @@ function sonarOptions(appVersion) {
     options: {
       'sonar.host.url': 'SONAR-SERVER',
       'sonar.projectKey': sonarProjectName,
-      // 'sonar.projectName': sonarProjectName,
+      'sonar.projectName': sonarProjectName,
 
-      'sonar.coverage.exclusions': 'api-test/*.js, api-test/node_scripts/**, api-test/test/**',
+      'sonar.coverage.exclusions': 'api-test/config.js, api-test/core/**, api-test/test/**',
+      'sonar.inclusions': 'api-test/**',
       'sonar.javascript.lcov.reportPath': 'coverage/lcov-sonar.info',
       'sonar.projectVersion': appVersion,
       'sonar.sourceEncoding': 'UTF-8',
