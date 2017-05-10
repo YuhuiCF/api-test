@@ -20,7 +20,8 @@ describe(`${fileName} ->`, () => {
         }
       })
       .then((response) => {
-        expect(response.statusCode).toBe(404);
+        expect(response.request.uri.pathname).toBe('/smp/api/authentication/login/admin');
+        expect(response.statusCode).toBe(401);
       })
       .catch((err) => {
         specError(err);
