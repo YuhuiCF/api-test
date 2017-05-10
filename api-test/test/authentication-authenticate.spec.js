@@ -20,6 +20,8 @@ describe(`${fileName} ->`, () => {
         }
       })
       .then((response) => {
+        expect(response.request.uri.method).toBe('POST', 'uri method');
+        expect(response.request.method).toBe('POST', 'request method');
         expect(response.request.uri.pathname).toBe('/smp/api/authentication/login/admin');
         expect(response.statusCode).toBe(401);
       })
