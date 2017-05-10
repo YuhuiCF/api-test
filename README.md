@@ -11,3 +11,8 @@
 # this could also be used for initializing
 bash node_modules/api-test/update.sh
 ```
+
+## Run the test:
+```
+npm install && export apiHost='https://a.bc.de'; npm run api-test:test
+```
