@@ -24,7 +24,7 @@ function listAllApis() {
         return listApis('/calls', {qs: {basePath: basePath}}).then((calls) => {
           log(`calls for basePath ${basePath} fetched`);
 
-          let promises = [];
+          const promises = [];
           R.forEach((call) => {
             promises.push(
               ejs(call)
