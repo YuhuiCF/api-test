@@ -5,6 +5,11 @@ const {SpecReporter} = require('jasmine-spec-reporter');
 
 let specStartTime;
 
+function getCurrentTime() {
+  return +(new Date());
+
+}
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 jasmine.getEnv().clearReporters();               // remove default reporter logs
@@ -14,15 +19,15 @@ jasmine.getEnv().addReporter(new SpecReporter({  // add jasmine-spec-reporter
     displayPending: true,
   },
   summary: {
-    displayDuration: false,
-  }
+    displayDuration: true,
+  },
 }));
 
 jasmine.getEnv().addReporter({
   specStarted: () => {
-    specStartTime = +(new Date());
+    specStartTime = getCurrentTime();
   },
   specDone: () => {
-    log('        ' + (+(new Date()) - specStartTime) + ' ms');
+    log('        ' + (getCurrentTime() - specStartTime) + ' ms');
   }
 });
