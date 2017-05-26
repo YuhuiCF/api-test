@@ -11,6 +11,7 @@ const apiPrefix = '';
 
 // sonarOptions
 const sonarProjectName = 'group--my-project';
+const sonarProjectBaseDir = process.cwd();
 function sonarOptions(appVersion) {
   // https://docs.sonarqube.org/display/SONAR/Analysis+Parameters
   return {
@@ -23,7 +24,8 @@ function sonarOptions(appVersion) {
 
       'sonar.coverage.exclusions': 'api-test/config.js, api-test/core/**, api-test/test/**',
       'sonar.inclusions': 'api-test/**',
-      'sonar.javascript.lcov.reportPath': 'coverage/lcov-sonar.info',
+      'sonar.javascript.lcov.reportPath': 'coverage/lcov.info',
+      'sonar.projectBaseDir': sonarProjectBaseDir,
       'sonar.projectVersion': appVersion,
       'sonar.sourceEncoding': 'UTF-8',
       'sonar.sources': 'api-test/',
@@ -33,8 +35,8 @@ function sonarOptions(appVersion) {
 
 
 module.exports = {
-  apiPrefixOflistApis: apiPrefixOflistApis,
-  apiPrefix: apiPrefix,
-  envVars: envVars,
-  sonarOptions: sonarOptions,
+  apiPrefixOflistApis,
+  apiPrefix,
+  envVars,
+  sonarOptions,
 };
