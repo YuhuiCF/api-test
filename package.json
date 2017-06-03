@@ -7,11 +7,12 @@
     "preapi-test:init-api": "rm -rf ./api-test/api",
     "api-test:init-api": "node ./api-test/core/node_scripts/initApis.js",
     "preapi-test:istanbul": "rm -rf ./coverage",
-    "api-test:istanbul": "JASMINE_CONFIG_PATH=api-test/core/jasmine.json istanbul cover jasmine --config=./api-test/core/istanbul.js",
+    "api-test:istanbul": "nyc npm run jasmine",
     "jasmine": "jasmine JASMINE_CONFIG_PATH=api-test/core/jasmine.json",
     "api-test:sonar": "bash -e api-test/core/sonar.sh",
     "api-test:sonarscan": "node ./api-test/core/node_scripts/sonarqubeScanner.js",
-    "api-test:test": "npm run api-test:init-api && npm run api-test:istanbul && npm run api-test:sonar"
+    "api-test:test": "npm run api-test:init-api && npm run api-test:istanbul && npm run api-test:sonar",
+    "nyc": "nyc npm run jasmine"
   },
   "repository": {
     "type": "git",
@@ -19,12 +20,23 @@
   },
   "author": "",
   "license": "ISC",
+  "nyc": {
+    "all": true,
+    "cache": true,
+    "exclude": ["**/node_modules/**", "**/api-test/core/**"],
+    "include": ["**/api-test/**"],
+    "report-dir": "./coverage",
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  },
   "dependencies": {
     "ejs": "2.5.6",
     "fs-extra": "3.0.1",
-    "istanbul": "0.4.5",
     "jasmine": "2.6.0",
     "jasmine-spec-reporter": "4.1.0",
+    "nyc": "11.0.2",
     "ramda": "0.23.0",
     "request": "2.81.0",
     "request-promise": "4.2.0",
