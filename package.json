@@ -1,6 +1,6 @@
 {
   "name": "api-test",
-  "version": "0.3.8",
+  "version": "0.4.0",
   "description": "API test template",
   "main": "index.js",
   "scripts": {
@@ -23,8 +23,13 @@
   "nyc": {
     "all": true,
     "cache": true,
-    "exclude": ["**/node_modules/**", "**/api-test/core/**"],
-    "include": ["**/api-test/**"],
+    "exclude": [
+      "**/node_modules/**",
+      "**/api-test/core/**"
+    ],
+    "include": [
+      "**/api-test/**"
+    ],
     "report-dir": "./coverage",
     "reporter": [
       "lcov",
