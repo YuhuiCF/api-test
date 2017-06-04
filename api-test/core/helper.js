@@ -11,7 +11,7 @@ const util = require('util');
 const config = require('../config');
 
 const {apiHost} = config.envVars;
-const {apiPrefix, envVars} = config;
+const {envVars} = config;
 
 const defaultOptions = {
   jar: true,
@@ -21,18 +21,18 @@ const defaultOptions = {
 };
 
 const helperModule = {
-  apiRequest: apiRequest,
-  envVars: envVars,
-  error: error,
-  fatal: fatal,
-  getMergedFgOptions: getMergedFgOptions,
-  log: log,
-  Promise: Promise,
-  R: R,
-  readFile: readFile,
-  request: request,
-  setUri: setUri,
-  specError: specError,
+  apiRequest,
+  envVars,
+  error,
+  fatal,
+  getMergedFgOptions,
+  log,
+  Promise,
+  R,
+  readFile,
+  request,
+  setUri,
+  specError,
 };
 
 module.exports = helperModule;
@@ -41,7 +41,7 @@ module.exports = helperModule;
 function apiRequest(method, fullPath, params = {}) {
   const options = getMergedFgOptions({
     method: method,
-    uri: setUri(fullPath, apiPrefix, params.pathParams),
+    uri: setUri(fullPath, '', params.pathParams),
   }, params);
 
   return request(options);
@@ -58,6 +58,7 @@ function error(message) {
 
 function specError(message) {
   helperModule.error(message);
+  expect('spec failed').toBe(message);
   throw new Error(message);
 }
 

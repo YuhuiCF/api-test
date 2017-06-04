@@ -2,12 +2,11 @@
 
 // environment variables:
 // please provide at least:
-//   apiHost, e.g. https://api.my-test-domain
+//   apiHost, e.g. 'https://api.my-test-domain'
 const envVars = process.env;
 
 // API Tester configurations:
 const apiPrefixOflistApis = '/smp/apitester/api';
-const apiPrefix = '';
 
 // sonarOptions
 const sonarProjectName = 'group--my-project';
@@ -36,7 +35,6 @@ function sonarOptions(appVersion) {
 
 module.exports = {
   apiPrefixOflistApis,
-  apiPrefix,
   envVars,
   sonarOptions,
 };

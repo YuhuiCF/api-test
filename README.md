@@ -3,7 +3,7 @@
 ## Initialize for your project
 * copy api-test/core to your own api-test/core
 * copy configuration file api-test/config.js to your own api-test/config.js, and update the fields
-* copy scripts and dependencies from packages.json to your own packages.json
+* copy scripts, nyc, and dependencies from package.json to your own package.json
 * add terms of .gitignore to your own .gitignore
 
 ## Update api-test module
@@ -11,6 +11,7 @@
 # this could also be used for initializing
 bash node_modules/api-test/update.sh
 ```
+* udpate configs in api-test/config.js
 
 ## Run the test:
 ```
