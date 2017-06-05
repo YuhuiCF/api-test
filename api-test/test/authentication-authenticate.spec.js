@@ -6,13 +6,23 @@ const {password, username} = require('../core/helper').envVars;
 const fileName = require('path').basename(__filename);
 
 const {getCurrentUser, login, logout} = require('./apis');
+const pathRegExp = /^\/smp\/api\/authentication\/login\/admin[\w]*/;
+
+function apiLogin(options) {
+  return login(options).then((response) => {
+    expect(response.request.method).toBe('POST');
+    expect(response.request.path).toMatch(pathRegExp);
+
+    return response;
+  });
+}
 
 
 describe(`${fileName} ->`, () => {
 
   describe('POST >', () => {
     it('could refuse login with incorrect credentials', (done) => {
-      login({
+      apiLogin({
         jar: false,
         body: {
           password: 'password',
@@ -31,7 +41,7 @@ describe(`${fileName} ->`, () => {
     });
 
     it('could login with correct credentials', (done) => {
-      login({
+      apiLogin({
         jar: false,
         body: {password, username}
       })
@@ -58,7 +68,7 @@ describe(`${fileName} ->`, () => {
     });
 
     it('could check current user if user is logged in', (done) => {
-      login({
+      apiLogin({
         body: {password, username}
       })
       .then(() => {
@@ -93,7 +103,7 @@ describe(`${fileName} ->`, () => {
     });
 
     it('could logout if user is logged in', (done) => {
-      login({
+      apiLogin({
         body: {password, username}
       })
       .then(() => {
