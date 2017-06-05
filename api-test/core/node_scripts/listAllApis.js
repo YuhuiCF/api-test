@@ -1,10 +1,8 @@
 'use strict';
 
 const {fatal, getMergedFgOptions, log, Promise, R, request, setUri} = require('../helper');
-const config = require('../../config');
+const {apiPrefixOflistApis} = require('../../config');
 const ejs = require('./ejs');
-
-const {apiPrefixOflistApis} = config;
 
 
 const defaultOptions = {

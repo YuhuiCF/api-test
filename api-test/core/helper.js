@@ -56,12 +56,6 @@ function error(message) {
   console.error(message);
 }
 
-function specError(message) {
-  helperModule.error(message);
-  expect('spec failed').toBe(message);
-  throw new Error(message);
-}
-
 /**
  * Stops the current node JS process
  * @param {string} message The message to be displayed, before ending
@@ -113,4 +107,9 @@ function setUri(url, prefix, ...replacers) {
   }
 
   return apiHost + prefix + url;
+}
+
+function specError(message) {
+  fail(message);
+  throw new Error(message);
 }
