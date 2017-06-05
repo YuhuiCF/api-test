@@ -31,6 +31,7 @@ const helperModule = {
   R,
   readFile,
   request,
+  setPathRegExp,
   setUri,
   specError,
 };
@@ -89,6 +90,10 @@ function readFile(file) {
   } catch (e) {
     fatal('Cannot read ' + file + '\n' + e.message);
   }
+}
+
+function setPathRegExp(path) {
+  return new RegExp(`\^${path}\$\|\^${path}?\|\^${path};jsessionid=`);
 }
 
 function setUri(url, prefix, ...replacers) {

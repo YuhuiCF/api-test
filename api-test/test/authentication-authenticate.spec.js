@@ -1,12 +1,12 @@
 'use strict';
 
-const {specError} = require('../core/helper');
+const {setPathRegExp, specError} = require('../core/helper');
 const {password, username} = require('../core/helper').envVars;
 
 const fileName = require('path').basename(__filename);
 
 const {getCurrentUser, login, logout} = require('./apis');
-const pathRegExp = /^\/smp\/api\/authentication\/login\/admin[\w]*/;
+const pathRegExp = setPathRegExp('/smp/api/authentication/login/admin');
 
 function apiLogin(options) {
   return login(options).then((response) => {
