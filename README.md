@@ -1,7 +1,7 @@
 # API Test Template
 
 ## Initialize for your project
-* add "api-test": "https://github.com/YuhuiCF/api-test.git" to the "dependencies" of your own package.json
+* add `"api-test": "https://github.com/YuhuiCF/api-test.git"` to the "dependencies" of your own package.json
 * run `npm i` to install the api-test module, which will be placed in node_modules/api-test
 * in the node_modules:
   - copy api-test/core to your own api-test/core
