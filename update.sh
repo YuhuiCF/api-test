@@ -11,3 +11,4 @@ mkdir -p ./api-test/
 cp -R ./node_modules/api-test/api-test/config.js ./api-test/config.js
 
 echo "Please update also package.json and .gitignore"
+echo "Please check the changes by running git status and/or git difftool"
