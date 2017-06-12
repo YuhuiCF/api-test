@@ -6,7 +6,7 @@
   "scripts": {
     "preapi-test:init-api": "rm -rf ./api-test/api",
     "api-test:init-api": "node ./api-test/core/node_scripts/initApis.js",
-    "preapi-test:istanbul": "rm -rf ./coverage",
+    "preapi-test:istanbul": "rm -rf ./api-test/coverage",
     "api-test:istanbul": "nyc npm run jasmine",
     "jasmine": "jasmine JASMINE_CONFIG_PATH=api-test/core/jasmine.json",
     "api-test:sonar": "bash -e api-test/core/sonar.sh",
@@ -30,7 +30,7 @@
     "include": [
       "**/api-test/**"
     ],
-    "report-dir": "./coverage",
+    "report-dir": "./api-test/coverage",
     "reporter": [
       "lcov",
       "text-summary"
