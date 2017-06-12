@@ -23,6 +23,7 @@ function sonarOptions(appVersion) {
 
       'sonar.coverage.exclusions': 'api-test/config.js, api-test/core/**, api-test/test/**',
       'sonar.inclusions': 'api-test/**',
+      'sonar.exclusions': 'api-test/coverage/**',
       'sonar.javascript.lcov.reportPath': 'api-test/coverage/lcov.info',
       'sonar.projectBaseDir': sonarProjectBaseDir,
       'sonar.projectVersion': appVersion,
