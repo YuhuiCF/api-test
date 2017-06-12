@@ -1,6 +1,8 @@
 
 .nyc_output
 .scannerwork
-coverage
-node_modules
 api-test/api
+api-test/coverage
+node_modules
+
+coverage
