@@ -99,7 +99,7 @@ function readFile(file) {
 }
 
 function setPathRegExp(path) {
-  return new RegExp(`\^${path}\$\|\^${path}?\|\^${path};jsessionid=`);
+  return new RegExp(`\^${path}\$\|\^${path}\\?\|\^${path};jsessionid=`);
 }
 
 function setSession(session) {
