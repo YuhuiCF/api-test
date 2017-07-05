@@ -7,7 +7,6 @@ let specStartTime;
 
 function getCurrentTime() {
   return +(new Date());
-
 }
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;

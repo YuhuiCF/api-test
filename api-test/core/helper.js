@@ -1,6 +1,5 @@
 'use strict';
 
-// TODO: append session to uri?
 const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
@@ -9,6 +8,8 @@ const request = require('request-promise');
 const util = require('util');
 
 const config = require('../config');
+
+let sessionId;
 
 const {apiHost} = config.envVars;
 const {envVars} = config;
@@ -32,6 +33,7 @@ const helperModule = {
   readFile,
   request,
   setPathRegExp,
+  setSession,
   setUri,
   specError,
 };
@@ -48,9 +50,13 @@ function apiRequest(method, fullPath, params = {}) {
   return request(options);
 }
 
+function appendSession() {
+  return sessionId ? (';jsessionid=' + sessionId) : '';
+}
+
 /**
  * Logs a message to the terminal
- * @param {string} message The message to be displayed
+ * @param {string} message - The message to be displayed
  * @return {undefined}
  */
 function error(message) {
@@ -59,7 +65,7 @@ function error(message) {
 
 /**
  * Stops the current node JS process
- * @param {string} message The message to be displayed, before ending
+ * @param {string} message - The message to be displayed, before ending
  * @return {undefined}
  */
 function fatal(message) {
@@ -75,7 +81,7 @@ function getMergedFgOptions(options, otherOptions) {
 
 /**
  * Logs a message to the terminal
- * @param {string} message The message to be displayed
+ * @param {string} message - The message to be displayed
  * @return {undefined}
  */
 function log(message) {
@@ -96,22 +102,35 @@ function setPathRegExp(path) {
   return new RegExp(`\^${path}\$\|\^${path}?\|\^${path};jsessionid=`);
 }
 
-function setUri(url, prefix, ...replacers) {
+function setSession(session) {
+  sessionId = session;
+}
+
+/**
+ * Logs a message to the terminal
+ * @param {string} url - API URL from the API Tester
+ * @param {string} prefix - prefix for the url
+ * @param {array} replacers - Array of ordered values, to replace variables in the url.
+ *    For example, url could be /api/users/{userId}/roles/{userRole}, if replacers are
+ *    [123, 'MANAGER'], then the new url would be /api/users/123/roles/MANAGER
+ * @return {string} The complete URL, with session (if set)
+ */
+function setUri(url, prefix, replacers) {
   const replacersLength = replacers && replacers.length;
 
   if (replacersLength) {
     const keys = url.match(/{(\w)+}/g);
 
     if (keys && keys.length) {
-      R.forEach((key, index) => {
+      keys.forEach((key, index) => {
         if (index < replacersLength) {
           url = url.replace(key, replacers[index]);
         }
-      }, keys);
+      });
     }
   }
 
-  return apiHost + prefix + url;
+  return apiHost + prefix + url + appendSession();
 }
 
 function specError(message) {
