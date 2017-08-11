@@ -32,3 +32,13 @@ npm run api-test:sonar
 # or in one command
 npm install && export apiHost='https://a.bc.de'; npm run api-test:test
 ```
+
+## Additional methods to retrieve data from the response
+```javascript
+response.getRequestMethod();
+response.getRequestOptions();
+response.getRequestPath();
+response.getResponseHeaders();
+response.getResponseBody();
+response.getStatusCode();
+```
