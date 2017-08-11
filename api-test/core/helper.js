@@ -47,7 +47,28 @@ function apiRequest(method, fullPath, params = {}) {
     uri: setUri(fullPath, '', params.pathParams),
   }, params);
 
-  return request(options);
+  return request(options).then((response) => {
+    response.getRequestMethod = () => {
+      return response.request.method;
+    };
+    response.getRequestOptions = () => {
+      return response.request._rp_options;
+    };
+    response.getRequestPath = () => {
+      return response.request.path;
+    };
+    response.getResponseHeaders = () => {
+      return response.headers;
+    };
+    response.getResponseBody = () => {
+      return response.body;
+    };
+    response.getStatusCode = () => {
+      return response.statusCode;
+    };
+
+    return response;
+  }) ;
 }
 
 function appendSession() {
