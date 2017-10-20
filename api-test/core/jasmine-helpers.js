@@ -3,6 +3,8 @@
 const {log} = require('console');
 const {SpecReporter} = require('jasmine-spec-reporter');
 
+const {apiHost} = require('../config').envVars;
+
 let specStartTime;
 
 function getCurrentTime() {
@@ -29,4 +31,8 @@ jasmine.getEnv().addReporter({
   specDone: () => {
     log('        ' + (getCurrentTime() - specStartTime) + ' ms');
   }
+});
+
+beforeAll(() => {
+  log(`apiHost: ${apiHost}`);
 });
