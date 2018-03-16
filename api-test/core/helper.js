@@ -68,7 +68,7 @@ function apiRequest(method, fullPath, params = {}) {
     };
 
     return response;
-  }) ;
+  });
 }
 
 function appendSession() {
