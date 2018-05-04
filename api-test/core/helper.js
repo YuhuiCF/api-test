@@ -5,7 +5,10 @@ const path = require('path');
 const Promise = require('bluebird');
 const R = require('ramda');
 const request = require('request-promise');
-const util = require('util');
+const {
+  error: consoleError,
+  log: consoleLog
+} = require('console');
 
 const config = require('../config');
 
@@ -80,8 +83,19 @@ function appendSession() {
  * @param {string} message - The message to be displayed
  * @return {undefined}
  */
+function log(message) {
+  const now = new Date();
+  const dateString = now.toISOString();
+  consoleLog(`${dateString} - ${message}`);
+}
+
+/**
+ * Logs an error message to the terminal
+ * @param {string} message - The message to be displayed
+ * @return {undefined}
+ */
 function error(message) {
-  console.error(message);
+  consoleError(message);
 }
 
 /**
@@ -98,15 +112,6 @@ function fatal(message) {
 
 function getMergedFgOptions(options, otherOptions) {
   return R.merge(R.clone(defaultOptions), R.merge(options, otherOptions));
-}
-
-/**
- * Logs a message to the terminal
- * @param {string} message - The message to be displayed
- * @return {undefined}
- */
-function log(message) {
-  util.log(message);
 }
 
 function readFile(file) {
