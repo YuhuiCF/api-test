@@ -1,5 +1,7 @@
 'use strict';
 
-const listAllApis = require('./listAllApis');
+const {envVars} = require('../../config');
+
+const listAllApis = envVars.apiTesterNewVersion ? require('./listAllApis2') : require('./listAllApis');
 
 listAllApis();

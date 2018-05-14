@@ -1,8 +1,8 @@
 # API Test Template
 
 ## Initialize for your project
-* add `"api-test": "https://github.com/YuhuiCF/api-test.git"` to the "dependencies" of your own package.json
-* run `npm i` to install the api-test module, which will be placed in node_modules/api-test
+* add `"api-test": "https://github.com/YuhuiCF/api-test.git"` to the `"dependencies"` of your own package.json
+* run `npm i` to install the api-test module, which will be placed in `node_modules/api-test`
 * in the node_modules:
   - copy api-test/core to your own api-test/core
   - copy configuration file api-test/config.js to your own api-test/config.js, and update the fields
@@ -19,8 +19,14 @@ bash node_modules/api-test/update.sh
 
 ## Run the test:
 ```
-# initialize api tests from your API Tester
-export apiHost='https://a.bc.de'; npm run api-test:init-api
+# indicate whether the mcon-group API Tester (https://github.com/mcon-group/apitester) is used or not
+export apiTesterNewVersion=1 # or ignore this, if old version of API Tester is used
+
+# indicate the api host
+export apiHost='https://a.bc.de'
+
+# initialize the rest APIs from your API Tester
+npm run api-test:init-api
 
 # run api tests, coverage report will be found in api-test/coverage
 npm run api-test:istanbul

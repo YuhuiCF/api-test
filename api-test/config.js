@@ -6,7 +6,7 @@
 const envVars = process.env;
 
 // API Tester configurations:
-const apiPrefixOflistApis = '/smp/apitester/api';
+const apiPrefixOflistApis = envVars.apiTesterNewVersion ? '/apitester' : '/smp/apitester/api';
 
 // sonarOptions
 const sonarProjectName = 'group--my-project';
